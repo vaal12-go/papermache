@@ -44,7 +44,7 @@ func SetTitle(title string) (int, error) {
 // URL above has an error, Handle Func should run with /static/
 func main() {
 
-	SetTitle("Papier-mâché 0.1.1")
+	SetTitle("Papier-mache 0.1.1")
 
 	mux := http.NewServeMux()
 
