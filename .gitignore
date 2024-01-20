@@ -1,0 +1,9 @@
+tmp/build-errors.log
+tmp/main.exe
+
+test_cases.txt
+
+papermache.exe
+papermache
+rsrc_windows_386.syso
+rsrc_windows_amd64.syso
