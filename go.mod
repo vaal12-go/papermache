@@ -4,6 +4,7 @@ go 1.21.4
 
 require (
 	github.com/golang-module/dongle v0.2.8
+	github.com/joho/godotenv v1.5.1
 	github.com/yeqown/go-qrcode/v2 v2.2.2
 	github.com/yeqown/go-qrcode/writer/standard v1.2.2
 )
