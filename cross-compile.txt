@@ -1,0 +1,12 @@
+https://opensource.com/article/21/1/go-cross-compiling
+
+go tool dist list
+
+linux/amd64
+
+SET GOOS=linux
+SET GOARCH=amd64
+REM - must set below otherwise an error
+REM https://github.com/golang/go/issues/40129
+SET CGO_ENABLED=0  
+go build -o papermache
