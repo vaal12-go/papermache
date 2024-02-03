@@ -1,0 +1,83 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/static/js/main.js"></script>
+    <!-- <script src="/static/js/js-snackbar.js  "></script> -->
+    
+    <!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <!-- <link rel="stylesheet" href="css/js-snackbar.css" /> -->
+    <title>Papier-mâché 0.1.2 03Feb2024</title>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <form action="" method="post">
+        <p>Text to encrypt</p>
+        <p>
+          <textarea
+            name="text2encrypt"
+            id="text2encrypt"
+            cols="80"
+            rows="18"
+            tabindex="1"
+            autofocus
+          ></textarea>
+        </p>
+        <p id="char-counters-para" class="no-show">
+          Characters:
+          <span id="char-entered-placeholder">0</span>
+          Bytes (characters encoded to UTF-8):
+          <span id="bytes-entered-placeholder">0</span>
+        </p>
+        
+        <p>
+          Key
+          <input
+            tabindex="2"
+            type="text"
+            name="key"
+            id="key"
+            style="width: 300px"
+          />
+          <button tabindex="4" type="button" id="generate-pass-btn">
+            Generate
+          </button>
+        </p>
+        <p>
+          <button tabindex="3" type="submit" id="form-submit-btn">
+            Encrypt data
+          </button>
+        </p>
+      </form>
+    </div>
+
+    <!-- <div style="text-align: center"> -->
+      
+      <p class="one-inch-left">
+        Information: Maximum number of bytes(!) is about 1200. This is not due to max number of characters for QR-code (which is about 2000), but due to encryption and encoding overheads (which add somewhere between 30-50% to byte count).
+      </p>
+    <!-- </div> -->
+
+    <div class="one-inch-left">
+      <span style="font-size: x-small">
+        Favicon - Key by randi from
+        <a
+          tabindex="-1"
+          href="https://thenounproject.com/browse/icons/term/key/"
+          target="_blank"
+          title="Key Icons"
+        >
+          Noun Project
+        </a>
+        (CC BY 3.0)
+      </span>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/static/js/result.js"></script>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Papier-mâché 0.1.2 03Feb2024</title>
+  </head>
+  <body>
+    <p>
+      <img
+        id="qr-code-placeholder"
+        width="500px"
+        class="one-inch-left"
+        style="padding-right: 1in; padding-top: 1cm; padding-bottom: 1cm"
+      />
+    </p>
+    <p id="datetime-placeholder" class="one-inch-left"></p>
+    
+    <div id="page-breaker-para"></div>
+    <div
+      id="encrypted-message-div"
+      class="one-inch-left"
+      style="
+        border: thick double darkgray;
+        margin-right: 1in;
+        width: 500px;
+        margin-top: 0.5in;
+      "
+    >
+      <p style="margin-bottom: 10px; padding-left: 0.1in">Encrypted text:</p>
+      <p
+        id="crypted-message-placeholder"
+        style="
+          word-wrap: break-word;
+          padding-left: 0.2in;
+          padding-right: 0.2in;
+          font-weight: bold;
+          margin-top: 1px;
+        "
+      ></p>
+    </div>
+    <p id="checkbox-container" class="one-inch-left">
+        Do not print encrypted text:<input
+          type="checkbox"
+          id="show-cipher-text-checkbox"
+        />
+      </p>
+
+    <div style="margin-top: 20px; color: darkgray">
+      <span id="contribution" class="one-inch-left" style="font-size: x-small">
+        Favicon - Key by randi from
+        <a
+          href="https://thenounproject.com/browse/icons/term/key/"
+          target="_blank"
+          title="Key Icons"
+          >Noun Project</a
+        >
+        (CC BY 3.0)
+      </span>
+    </div>
+  </body>
+</html>
