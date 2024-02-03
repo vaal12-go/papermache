@@ -13,7 +13,7 @@
       "0409": {
         "identity": {
           "name": "",
-          "version": ""
+          "version": "0.1.2"
         },
         "description": "",
         "minimum-os": "win7",
@@ -37,8 +37,8 @@
     "#1": {
       "0000": {
         "fixed": {
-          "file_version": "0.0.0.0",
-          "product_version": "0.0.0.0"
+          "file_version": "0.1.2.0",
+          "product_version": "0.1.2.0"
         },
         "info": {
           "0409": {
