@@ -22,6 +22,19 @@
   }
 }
 
+@media print {
+  div.divFooter {
+    position: fixed;
+    bottom: 1in;
+    margin-left: 1in;
+  }
+
+  /* html, body {
+    width: 210mm;
+    height: 297mm;
+  } */
+}
+
 
 /* From https://stackoverflow.com/a/1664058 */
 .page-break {

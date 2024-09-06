@@ -1,0 +1,66 @@
+{{define "head.js"}}
+<!-- Bootstrap related imports -->
+<link href="static/css/bootstrap.min_5.0.2.css" rel="stylesheet" />
+<script src="static/js/bootstrap.bundle.min_5.0.2.js"></script>
+
+<script type="module">
+  import { start } from "./static/js/decode_qr.js";
+  // console.log("Hello1")
+  executeOnload(start);
+</script>
+
+<link
+  href="static/css/uppy_v3.25.2.min.css"
+  rel="stylesheet"
+/>
+{{end}}
+    
+    {{define "head.title"}}
+    <title>Decode QR code</title>
+    {{end}} 
+  
+    {{define "body"}}
+
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col"><h1>QR to decode</h1></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-7">
+          <div
+            id="file_upload_div"
+            style="width: 100%; height: 370px; background-color: bisque"
+          ></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <label for="key" class="form-label col-form-label"
+            >Key (optional, for encrypted QR codes)</label
+          >
+        </div>
+        <div class="col-3 text-start">
+          <input
+            tabindex="2"
+            type="text"
+            name="key"
+            id="key"
+            style="width: 80%"
+            class="form-control"
+          />
+        </div>
+        <div class="col-2 text-end">
+          <button
+            tabindex="3"
+            type="submit"
+            id="decode-qr-submit-btn"
+            class="btn btn-primary"
+          >
+            Decode QR-code
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {{end}}

@@ -1,0 +1,95 @@
+{{define "base"}}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap related imports -->
+    <link href="static/css/bootstrap.min_5.0.2.css" rel="stylesheet" />
+
+    <script src="static/js/jquery-3.7.1.slim.min.js"></script>
+    <script src="static/js/popper.min_2.9.2.js"></script>
+    <script src="static/js/bootstrap.bundle.min_5.0.2.js"></script>
+
+    <!-- Notify -->
+      <!-- CSS -->
+      <link rel="stylesheet" href="static/css/simple-notify_0.5.5.min.css" />
+      <!-- JS -->
+      <script src="static/js/simple-notify_0.5.5.min.js"></script>
+
+    <script src="static/js/common.js"></script>
+    <!-- Head title -->
+    {{template "head.title" .}} 
+    <!-- Head title END -->
+    
+    <!-- head.js -->
+    {{template "head.js" .}}
+    <!-- head.js END -->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="static/img/favicon.png" alt="" width="30" height="24" />
+          Papier-mâché
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="decode_qr.html"
+                >Read QR</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+      
+          </ul>
+
+          <button class="btn btn-warning" type="submit" id="stop-server">
+            Stop server
+          </button>
+          <!-- <a id="help-link" class="nav-link disabled" href="static/help.html">Help (in development)</a> -->
+          <span class="navbar-text " style="padding-left:10px;" id="version_span">  </span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Server stopped modal dialog -->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="mySmallModalLabel"
+      aria-hidden="true"
+      id="server-stopped-modal"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog ">
+        <div class="modal-content text-center">
+          <p><h1>Papier-mâché server is stopped</h1></p>
+          <p><h2>Please close this browser window</h2></p>
+          </div>
+      </div>
+    </div>
+
+    {{template "body" .}}
+  </body>
+</html>
+{{end}}
+<!-- https://stackoverflow.com/questions/11467731/is-it-possible-to-have-nested-templates-in-go-using-the-standard-library -->

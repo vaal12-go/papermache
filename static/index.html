@@ -1,83 +1,198 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <script src="/static/js/main.js"></script>
-    <!-- <script src="/static/js/js-snackbar.js  "></script> -->
-    
-    <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
-
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+{{define "head.js"}}
+<script src="/static/js/main.js"></script>
 
 
-    <link rel="icon" type="image/x-icon" href="/static/img/favicon.png" />
-    <link rel="stylesheet" href="css/main.css" />
-    <!-- <link rel="stylesheet" href="css/js-snackbar.css" /> -->
-    <title>Papier-mâché 0.1.2 03Feb2024</title>
-  </head>
-  <body>
-    <div style="text-align: center">
-      <form action="" method="post">
-        <p>Text to encrypt</p>
+
+<link rel="icon" type="image/x-icon" href="/static/img/favicon.png" />
+<link rel="stylesheet" href="static/css/main.css" />
+{{end}} {{define "head.title"}}
+<title>Papier-mâché 0.1.2 03Feb2024</title>
+{{end}} {{define "body"}}
+<!-- <div style="text-align: center"> -->
+<div class="container">
+  <form action="" method="post">
+    <div class="row align-items-center">
+      <div class="col-3">
+        <h2>Text to encrypt</h2>
+      </div>
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Help
+        </button>
+      </div>
+    </div>
+    <!-- Main row -->
+    <div class="row mb-3">
+      <div class="col-5">
+        <textarea
+          name="text2encrypt"
+          id="text2encrypt"
+          width="100%"
+          rows="15"
+          tabindex="1"
+          autofocus
+          style="width: 100%"
+        ></textarea>
+        <!-- cols="80" -->
+      </div>
+      <div class="col-1 test-start">
         <p>
-          <textarea
-            name="text2encrypt"
-            id="text2encrypt"
-            cols="80"
-            rows="18"
-            tabindex="1"
-            autofocus
-          ></textarea>
-        </p>
-        <p id="char-counters-para" class="no-show">
-          Characters:
-          <span id="char-entered-placeholder">0</span>
-          Bytes (characters encoded to UTF-8):
+          Bytes:
           <span id="bytes-entered-placeholder">0</span>
         </p>
-        
-        <p>
-          Key
-          <input
-            tabindex="2"
-            type="text"
-            name="key"
-            id="key"
-            style="width: 300px"
-          />
-          <button tabindex="4" type="button" id="generate-pass-btn">
-            Generate
-          </button>
+        <p id="char-counters-para" class="fw-lighter">
+          Chars:
+          <span id="char-entered-placeholder">0</span>
         </p>
-        <p>
-          <button tabindex="3" type="submit" id="form-submit-btn">
-            Encrypt data
+      </div>
+      <div class="col-6">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <label for="key" class="form-label col-form-label fw-bold"
+                >Encryption key
+              </label>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col-8">
+              <input
+                tabindex="2"
+                type="text"
+                name="key"
+                id="key"
+                style="width: 100%"
+                class="form-control"
+              />
+            </div>
+            <div class="col-4">
+              <button
+                tabindex="4"
+                type="button"
+                id="generate-pass-btn"
+                class="btn btn-secondary"
+              >
+                Generate password
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label for="openComment" class="form-label col-form-label fw-bold"
+                >Optional comment to be included (will not be
+                  encrypted!)</label
+              >
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-12">
+              <textarea
+                name="openComment"
+                id="openComment"
+                width="100%"
+                rows="8"
+                tabindex="2"
+                autofocus
+                style="width: 100%"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Main row END -->
+
+      <div class="row mb-5">
+        <div class="col-12 text-center mt-5">
+          <button
+            tabindex="3"
+            type="submit"
+            id="form-submit-btn"
+            class="btn btn-primary"
+            style="width: 30%"
+          >
+            Encrypt
           </button>
-        </p>
-      </form>
-    </div>
+        </div>
+      </div>
+      <!-- </form> -->
 
-    <!-- <div style="text-align: center"> -->
-      
-      <p class="one-inch-left">
-        Information: Maximum number of bytes(!) is about 1200. This is not due to max number of characters for QR-code (which is about 2000), but due to encryption and encoding overheads (which add somewhere between 30-50% to byte count).
-      </p>
-    <!-- </div> -->
+      <!-- Help Modal dialog content -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Information on max size to encrypt
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Maximum number of bytes(!) which can be encrypted in one QR code
+                is about 1200. This is a restriction of QR code standard,
+                encryption and encoding overheads.
+              </p>
+              <p>
+                When you start entering data to "Text to encrypt" field a helper
+                will appear which will show current number of character and
+                bytes entered. "Bytes (characters encoded to UTF-8)" number
+                should not exceed 1200.
+              </p>
+              <p>
+                For readability of QR code though it is recommended to encrypt
+                about 500-600 characters in one QR code. If more is encoded QR
+                code elements become small and some phones will have hard time
+                reading such QR code.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="one-inch-left">
-      <span style="font-size: x-small">
-        Favicon - Key by randi from
-        <a
-          tabindex="-1"
-          href="https://thenounproject.com/browse/icons/term/key/"
-          target="_blank"
-          title="Key Icons"
-        >
-          Noun Project
-        </a>
-        (CC BY 3.0)
-      </span>
+      <div class="row">
+        <!-- <span style="font-size: x-small"> -->
+        <small class="text-black-50">
+          Favicon - Key by randi from
+          <a
+            tabindex="-1"
+            href="https://thenounproject.com/browse/icons/term/key/"
+            target="_blank"
+            title="Key Icons"
+          >
+            Noun Project
+          </a>
+          (CC BY 3.0)
+          <!-- </span> -->
+        </small>
+      </div>
+
+      <!-- Main container div -->
     </div>
-  </body>
-</html>
+    {{end}}
+  </form>
+</div>

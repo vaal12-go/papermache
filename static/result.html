@@ -1,23 +1,48 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script src="/static/js/common.js"></script>
     <script src="/static/js/result.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.png" />
     <link rel="stylesheet" href="css/main.css" />
     <title>Papier-mâché 0.1.2 03Feb2024</title>
   </head>
   <body>
+    <p
+      id="page1-number-placeholder"
+      style="font-size: small"
+      class="one-inch-left"
+    >
+      Page 1/1
+    </p>
     <p>
       <img
         id="qr-code-placeholder"
         width="500px"
         class="one-inch-left"
-        style="padding-right: 1in; padding-top: 1cm; padding-bottom: 1cm"
+        style="padding-right: 1in; padding-top: 0cm; padding-bottom: 0.2cm"
       />
     </p>
-    <p id="datetime-placeholder" class="one-inch-left"></p>
-    
+
+    <p id="openComment" class="one-inch-left"></p>
+
+    <p class="one-inch-left">
+      ______________________________________________________________
+    </p>
+    <p class="one-inch-left">
+      ______________________________________________________________
+    </p>
+
     <div id="page-breaker-para"></div>
+
+    <p
+      id="page2-number-placeholder"
+      style="font-size: small"
+      class="one-inch-left"
+    >
+      Page 1/1
+    </p>
+
     <div
       id="encrypted-message-div"
       class="one-inch-left"
@@ -28,7 +53,9 @@
         margin-top: 0.5in;
       "
     >
-      <p style="margin-bottom: 10px; padding-left: 0.1in">Encrypted text:</p>
+      <p style="margin-bottom: 10px; padding-left: 0.1in">
+        Encrypted cypher same as in QRCode human readable (Base-64):
+      </p>
       <p
         id="crypted-message-placeholder"
         style="
@@ -41,11 +68,11 @@
       ></p>
     </div>
     <p id="checkbox-container" class="one-inch-left">
-        Do not print encrypted text:<input
-          type="checkbox"
-          id="show-cipher-text-checkbox"
-        />
-      </p>
+      Do not print encrypted text:<input
+        type="checkbox"
+        id="show-cipher-text-checkbox"
+      />
+    </p>
 
     <div style="margin-top: 20px; color: darkgray">
       <span id="contribution" class="one-inch-left" style="font-size: x-small">
@@ -58,6 +85,10 @@
         >
         (CC BY 3.0)
       </span>
+    </div>
+
+    <div class="divFooter" style="font-size: small">
+      <span id="datetime-placeholder"></span>
     </div>
   </body>
 </html>

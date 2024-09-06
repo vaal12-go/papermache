@@ -1,17 +1,17 @@
 package main
 
 import (
-	"bytes"
-	"crypto/rand"
-	"encoding/json"
+	"context"
 	"fmt"
-	"io"
 	"net/http"
+	"os"
 	"os/exec"
 	"runtime"
+	"syscall"
 	"time"
+	"unsafe"
 
-	"github.com/golang-module/dongle"
+	"golang.org/x/term"
 )
 
 //TODO: test openBrowser on Linux
@@ -21,10 +21,8 @@ import (
 // open opens the specified URL in the default browser of the user.
 func openBrowser(url string) error {
 	time.Sleep(1 * time.Second)
-
 	var cmd string
 	var args []string
-
 	switch runtime.GOOS {
 	case "windows": //This works on Win10
 		cmd = "explorer"
@@ -37,63 +35,66 @@ func openBrowser(url string) error {
 	return exec.Command(cmd, args...).Start()
 } //func openBrowser(url string) error {
 
-func encodeAndSendJSON(val any, w *http.ResponseWriter) {
-	encrAnswerJSON, err := json.Marshal(val)
-	// fmt.Printf("encrAnswerJSON: %v\n", string(encrAnswerJSON))
-	if err != nil {
-		io.WriteString(*w,
-			fmt.Sprintf("Error converting string to JSON:%s", err))
-	}
-	io.WriteString(*w, string(encrAnswerJSON))
-} //func encodeAndSendJSON(val any, w *http.ResponseWriter) {
-
-func sendError(descr string, w *http.ResponseWriter) {
-	fmt.Printf("Sending error to client:%s\n", descr)
-	var encrAnswer = new(EncryptAnswer)
-	encrAnswer.ErrOccurred = true
-	encrAnswer.ErrDescription = descr
-	encodeAndSendJSON(encrAnswer, w)
-} //func sendError(descr string, w *http.ResponseWriter) {
-
-func stretchKey(key string) []byte {
-	const NO_OF_STRETCHING_ROUNDS = 128
-	byteArray := dongle.Encrypt.FromBytes([]byte(key)).BySha512().ToRawBytes()
-
-	for i := 1; i < 128; i++ {
-		byteArray = dongle.Encrypt.FromBytes([]byte(byteArray)).BySha512().ToRawBytes()
-	}
-	// fmt.Printf("len of byteArray: %v\n", len(byteArray))
-	// fmt.Printf("byteArray: %x\n", string(byteArray))
-	return byteArray[:32]
-} //func stretchKey(key string) []byte {
-
-// TODO: add error in return of this function
-func get16BytesIV() []byte {
-	//https://pkg.go.dev/crypto/rand#Read
-	const IV_LENGTH = 16
-	b := make([]byte, IV_LENGTH)
-	_, err := rand.Read(b)
-	if err != nil {
-		fmt.Printf("get16BytesIV(). Error generating IV:%s\n", err)
-		return nil
-	}
-	// The slice should now contain random bytes instead of only zeroes.
-	// fmt.Println(bytes.Equal(b, make([]byte, c)))
-	return b
-} //func get16BytesIV() []byte {
-
-// Code from here: https://gist.github.com/hothero/7d085573f5cb7cdb5801d7adcf66dcf3
-func PKCS5Padding(ciphertext []byte, blockSize int) []byte {
-	padding := blockSize - len(ciphertext)%blockSize
-	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
-	return append(ciphertext, padtext...)
+func terminalCharServerCloser(srvr *http.Server) {
+	readSingleCharFromConsole()
+	srvr.Shutdown(context.TODO())
 }
 
-// TODO: this is not good (replaced with stretchKey) - to be removed
-// func padKey(key string) string {
-// 	const KEY_PAD_SYMBOL = "="
-// 	if len(key) < 16 {
-// 		return key + strings.Repeat("=", 16-len(key))
-// 	}
-// 	return key
-// }
+func readSingleCharFromConsole() {
+	// fmt.Printf("\"waiting for rune\": %v\n", "waiting for rune")
+	// reader := bufio.NewReader(os.Stdin)
+	// char, _, err := reader.ReadRune()
+
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// // print out the unicode value i.e. A -> 65, a -> 97
+	// fmt.Printf("Have rune:%v:", char)
+	// switch char {
+	// case 'A':
+	// 	fmt.Println("A Key Pressed")
+	// 	break
+	// case 'a':
+	// 	fmt.Println("a Key Pressed")
+	// 	break
+	// }
+	// deadlinetime := time.Now().Add(time.Second * 5)
+	// // err := os.Stdin.SetDeadline(deadlinetime)
+
+	// // if err != nil {
+	// // 	fmt.Printf("Setting deadline err: %v\n", err)
+	// // 	return
+	// // }
+
+	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer term.Restore(int(os.Stdin.Fd()), oldState)
+
+	b := make([]byte, 1)
+	_, err = os.Stdin.Read(b)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("the char %q was hit", string(b[0]))
+}
+
+// From here: https://github.com/lxi1400/GoTitle/blob/main/title.go
+// https://www.reddit.com/r/golang/comments/a51266/how_get_or_set_the_console_title_in_go/
+// TODO: add check if this is windows maching and find solution for linux
+func SetTitle(title string) (int, error) {
+	handle, err := syscall.LoadLibrary("Kernel32.dll")
+	if err != nil {
+		return 0, err
+	}
+	defer syscall.FreeLibrary(handle)
+	proc, err := syscall.GetProcAddress(handle, "SetConsoleTitleW")
+	if err != nil {
+		return 0, err
+	}
+	r, _, err := syscall.Syscall(proc, 1, uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(title))), 0, 0)
+	return int(r), err
+}

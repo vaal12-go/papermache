@@ -1,17 +1,22 @@
-window.onload = () => {
-  // console.log("Result window: I am in.");
-  // console.log("GLOBAL_STATE:", sessionStorage.getItem("key"));
+executeOnload(() => {
+  initResultWindow();
 
+});
+
+function initResultWindow() {
   ImagePath = sessionStorage.getItem("ImagePath");
   EncryptedText = sessionStorage.getItem("EncryptedText");
-  // console.log(EncryptedText);
-  // console.log("EncrText len:", EncryptedText.length);
-
+  OpenComment = sessionStorage.getItem("OpenComment");
+  document.getElementById("openComment").innerHTML =
+    "Comment: "+OpenComment;
+// 
+  // console.log('OpenComment :>> ', OpenComment);
+  document.getElementById("page1-number-placeholder").innerHTML = "Page <strong>1</strong> of 1";
   if(EncryptedText.length > 900) {
-    // console.log("Page breaker added");
     document.getElementById("page-breaker-para").classList.add("page-break");
+    document.getElementById("page1-number-placeholder").innerHTML = "Page <strong>1</strong> of 2";
+    document.getElementById("page2-number-placeholder").innerHTML = "Page <strong>2</strong> of 2";
   }
-
   document
     .getElementById("qr-code-placeholder")
     .setAttribute("src", ImagePath);
@@ -24,27 +29,21 @@ window.onload = () => {
       timeStyle: 'long',
       timeZone: 'UTC',
     })).format(currTime)
-
-    // console.log("date:", formatted_date)
-    document.getElementById("datetime-placeholder").innerHTML = formatted_date
-
+    document.getElementById("datetime-placeholder").innerHTML = "Generated:"+formatted_date
     document.getElementById("show-cipher-text-checkbox").addEventListener("change",
       (evt)=> {
-        // console.log("Checkbox changed", document.getElementById("show-cipher-text-checkbox").checked)
         if(document.getElementById("show-cipher-text-checkbox").checked) {
           document.getElementById("encrypted-message-div").classList.add("no-print")
           document.getElementById("encrypted-message-div").classList.add("no-show")
-          
-          // console.log(document.getElementById("crypted-message-placeholder").classList)
         } else {
           document.getElementById("encrypted-message-div").classList.remove("no-print")
           document.getElementById("encrypted-message-div").classList.remove("no-show")
         }
-
       }
     )
 
-}; //window.onload = ()=> {
+    
+}; //initResultWindow() {
 
 
 
