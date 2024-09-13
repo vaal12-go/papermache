@@ -41,31 +41,6 @@ func terminalCharServerCloser(srvr *http.Server) {
 }
 
 func readSingleCharFromConsole() {
-	// fmt.Printf("\"waiting for rune\": %v\n", "waiting for rune")
-	// reader := bufio.NewReader(os.Stdin)
-	// char, _, err := reader.ReadRune()
-
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// // print out the unicode value i.e. A -> 65, a -> 97
-	// fmt.Printf("Have rune:%v:", char)
-	// switch char {
-	// case 'A':
-	// 	fmt.Println("A Key Pressed")
-	// 	break
-	// case 'a':
-	// 	fmt.Println("a Key Pressed")
-	// 	break
-	// }
-	// deadlinetime := time.Now().Add(time.Second * 5)
-	// // err := os.Stdin.SetDeadline(deadlinetime)
-
-	// // if err != nil {
-	// // 	fmt.Printf("Setting deadline err: %v\n", err)
-	// // 	return
-	// // }
-
 	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
 	if err != nil {
 		fmt.Println(err)
@@ -79,8 +54,7 @@ func readSingleCharFromConsole() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("the char %q was hit", string(b[0]))
-}
+} //func readSingleCharFromConsole() {
 
 // From here: https://github.com/lxi1400/GoTitle/blob/main/title.go
 // https://www.reddit.com/r/golang/comments/a51266/how_get_or_set_the_console_title_in_go/

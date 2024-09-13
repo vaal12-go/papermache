@@ -1,6 +1,6 @@
-var GLOBAL_STATE = "qwe1";
+// var GLOBAL_STATE = "qwe1";
 
-const BASE_URL = "";
+
 
 //From: https://stackoverflow.com/questions/9719570/generate-random-password-string-with-requirements-in-javascript
 //Specifically: https://stackoverflow.com/a/26528271

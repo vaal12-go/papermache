@@ -15,10 +15,12 @@ import (
 
 //WinRes: https://github.com/tc-hib/go-winres
 
-//https://pkg.go.dev/embed
-//go:embed static/**
+// https://pkg.go.dev/embed
+var (
+	//go:embed static
+	content embed.FS
+)
 
-var content embed.FS
 var srvr *http.Server
 
 //[x]: create Shutdown button in html pages
@@ -48,9 +50,7 @@ func main() {
 	SetTitle("Papier-mâché 0.2.0_test_18May2024")
 	err := godotenv.Load(".env")
 	var DEVELOPER_MODE = ""
-
 	//TODO: add -v parameter to show version of the executable
-
 	var fs http.Handler = nil
 	mux := createHandlers()
 	if err != nil { //No .env file found - working as production
@@ -58,7 +58,8 @@ func main() {
 		fmt.Printf("%v\n", "Work in production mode.")
 		fs = http.FileServer(http.FS(content))
 		mux.Handle("/static/", fs)
-
+		handlers.UseEmbeddedFS = true
+		handlers.Content = content
 	} else { //if err != nil {//.env file found
 		DEVELOPER_MODE = os.Getenv("DEVELOPER_MODE")
 		if DEVELOPER_MODE == "TRUE" { //DEVELOPER_MODE is set correctly - entering dev mode
@@ -72,9 +73,7 @@ func main() {
 	} //} else { //if err != nil {//.env file found
 
 	fmt.Println("Server starts")
-
 	go openBrowser("http://localhost:3333/index.html")
-
 	srvr = &http.Server{
 		Addr:    "localhost:3333",
 		Handler: mux,
