@@ -90,7 +90,7 @@ function onSubmitClick(event) {
     Key: key2Encode,
   });
 
-
+//HIGH: add checks for network failures (e.g. server is not working) and provide appropriate notification to user
   fetch(BASE_URL + "receiveData2Encrypt", {
     method: "POST",
     body: encodedBody,

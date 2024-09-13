@@ -37,6 +37,7 @@ func openBrowser(url string) error {
 
 func terminalCharServerCloser(srvr *http.Server) {
 	readSingleCharFromConsole()
+	fmt.Println("Server is being shut down. Application in browser window will not work anymore.")
 	srvr.Shutdown(context.TODO())
 }
 

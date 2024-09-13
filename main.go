@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/vaal12-go/papermache/handlers"
@@ -47,7 +48,7 @@ func createHandlers() *http.ServeMux {
 // https://www.digitalocean.com/community/tutorials/how-to-make-an-http-server-in-go
 // URL above has an error, Handle Func should run with /static/
 func main() {
-	SetTitle("Papier-mâché 0.2.0_test_18May2024")
+	SetTitle("Papier-mâché 0.2.1 06Sep2024")
 	err := godotenv.Load(".env")
 	var DEVELOPER_MODE = ""
 	//TODO: add -v parameter to show version of the executable
@@ -64,7 +65,6 @@ func main() {
 		DEVELOPER_MODE = os.Getenv("DEVELOPER_MODE")
 		if DEVELOPER_MODE == "TRUE" { //DEVELOPER_MODE is set correctly - entering dev mode
 			fmt.Printf("DEV mode\n")
-			//This is used for development
 			fs = http.FileServer(http.Dir("./static"))
 			mux.Handle("/static/", http.StripPrefix("/static/", fs))
 		} else { //Dev mode is set incorrectly - exiting
@@ -72,7 +72,7 @@ func main() {
 		}
 	} //} else { //if err != nil {//.env file found
 
-	fmt.Println("Server starts")
+	fmt.Println("Server starts.")
 	go openBrowser("http://localhost:3333/index.html")
 	srvr = &http.Server{
 		Addr:    "localhost:3333",
@@ -80,6 +80,10 @@ func main() {
 	}
 	handlers.ServerInstance = srvr
 	go terminalCharServerCloser(srvr)
+	go func() {
+		time.Sleep(time.Second * 2)
+		fmt.Println("Press any key to stop server and exit.")
+	}()
 	err = srvr.ListenAndServe()
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("Server closed gracefully. All is good.\n")
