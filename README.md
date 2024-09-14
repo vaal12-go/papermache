@@ -8,7 +8,7 @@ Decrypt of QR codes can be done with companion android application (see [Paperma
 
 Application does not transmit any data outside of computer. It provides web interface, which works on computer where it is run
 
-Name is derived from French [Papier-mâché](https://en.wikipedia.org/wiki/Papier-m%C3%A2ch%C3%A9) hinting that secrets are stored on paper, but encrypted.
+Name is derived from French [Papier-mache](https://en.wikipedia.org/wiki/Papier-m%C3%A2ch%C3%A9) hinting that secrets are stored on paper, but encrypted.
 
 ## HOW-TO
 
@@ -47,7 +47,7 @@ You can print this page to your printer or to PDF using your browser's facilitie
 
 QR code contains encrypted text, which cannot be decyphered without your key. Encryption used is [Advanced Encryption Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
 
-> Wiki: The Advanced Encryption Standard (AES), also known by its original name Rijndael (Dutch pronunciation: [ˈrɛindaːl]), is a specification for the encryption of electronic data established by the U.S. National Institute of Standards and Technology (NIST) in 2001.
+> Wiki: The Advanced Encryption Standard (AES), also known by its original name Rijndael (Dutch pronunciation: [?r?inda?l]), is a specification for the encryption of electronic data established by the U.S. National Institute of Standards and Technology (NIST) in 2001.
 
 ### Exiting application
 
